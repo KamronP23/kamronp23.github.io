@@ -237,3 +237,10 @@ section {
   border-color: #3f5d4e;
   box-shadow: none;
 }
+
+.sliding-scale-text {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #5a5a5a;
+  margin-top: 6px;
+}

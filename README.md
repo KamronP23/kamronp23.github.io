@@ -1,1 +1,1 @@
-# kindred-mental-health 2026
+# kindred-mental-health

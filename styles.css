@@ -244,3 +244,9 @@ section {
   color: #5a5a5a;
   margin-top: 6px;
 }
+
+.hero-headshot1 {
+  max-width: 300px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}

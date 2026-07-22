@@ -1,51 +1,72 @@
+/* ==========================================================================
+   Kindred Mental Health — stylesheet
+   --------------------------------------------------------------------------
+   1. Design tokens
+   2. Base typography
+   3. Eyebrow labels
+   4. Buttons (pill)
+   5. Navbar
+   6. Layout & section rhythm
+   7. Hero
+   8. Arch-framed headshot + botanical accents
+   9. Trust strip
+   10. Cards (service / fee / contact) + icon chips
+   11. Insurance table
+   12. Scene image bands
+   13. Forms
+   14. CTA band
+   15. Footer
+   16. Utilities & responsive tweaks
+   17. State selector + Washington private-pay card
+   ========================================================================== */
+
+/* 1. Design tokens ------------------------------------------------------- */
+:root {
+  --bg: #eee6dc;          /* page background        */
+  --surface: #f5efe7;     /* card / surface         */
+  --green: #3f5d4e;       /* primary green          */
+  --green-hover: #2f4a3d; /* primary green hover    */
+  --border: #d8cfc4;      /* hairline borders       */
+  --text: #4a4a4a;        /* body text              */
+  --tint: #e3dac9;        /* icon-chip / soft tint  */
+  --tint-2: #dccfbc;      /* deeper warm tint       */
+  --eyebrow: #8a7a62;     /* muted eyebrow text     */
+  --on-green: #cfdcd3;    /* light text on green    */
+  --sage: #9db3a4;        /* botanical sage         */
+  --sage-deep: #7e9a89;
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans: "Helvetica Neue", Arial, sans-serif;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+}
+
+/* 2. Base typography ----------------------------------------------------- */
 body {
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #4a4a4a;
-  background-color: #eee6dc;
+  font-family: var(--sans);
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.65;
 }
 
-.hero {
-  background-color: #eee6dc;
-  padding: clamp(48px, 8vw, 100px) 0;
-    border-bottom: 1px solid #d8cfc4;
-
+h1, h2, h3, h4, h5, h6,
+.navbar-brand {
+  font-family: var(--serif);
+  color: var(--green);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-.footer {
-  background: #f8f9fa;
-  padding: 20px 0;
-  margin-top: 60px;
-}
-
-.disclaimer {
-  font-size: 0.9em;
-  color: #666;
-}
-
-h1, h2, h3, .navbar-brand {
-  color: #3f5d4e;
+h1, .display-5 {
+  font-weight: 600;
+  line-height: 1.12;
 }
 
 a {
-  color: #3f5d4e;
+  color: var(--green);
 }
 
 a:hover {
-  color: #2f4a3d;
-}
-
-.custom-navbar .nav-link {
-  color: #3f5d4e;
-
-}
-
-.custom-navbar .nav-link:hover {
-  color: #2f4a3d;
-}
-
-.custom-navbar {
-  background-color: #eee6dc;
-  border-bottom: 1px solid #d8cfc4;
+  color: var(--green-hover);
 }
 
 img {
@@ -53,111 +74,358 @@ img {
   height: auto;
 }
 
+/* constrain prose for readability */
+.prose {
+  max-width: 65ch;
+}
+
+.lead {
+  color: var(--text);
+}
+
+/* 3. Eyebrow labels ------------------------------------------------------ */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;     /* ~11.5px */
+  font-weight: 600;
+  color: var(--eyebrow);
+  margin-bottom: 0.85rem;
+}
+
+/* 4. Buttons (pill) ------------------------------------------------------ */
+.btn {
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  padding: 0.65rem 1.6rem;
+  transition: background-color 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.btn-primary,
+.btn-primary:focus {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: var(--surface);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: var(--green-hover) !important;
+  border-color: var(--green-hover) !important;
+  color: var(--surface);
+}
+
+.btn-outline-primary {
+  color: var(--green);
+  border-color: var(--green);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+  background-color: var(--green) !important;
+  border-color: var(--green) !important;
+  color: var(--surface) !important;
+}
+
+/* cream pill — used on the dark CTA band */
+.btn-cream {
+  background-color: var(--surface);
+  border: 1px solid var(--surface);
+  color: var(--green);
+}
+
+.btn-cream:hover {
+  background-color: #fffaf2;
+  border-color: #fffaf2;
+  color: var(--green-hover);
+}
+
+/* small navbar CTA */
+.btn-nav-cta {
+  padding: 0.45rem 1.25rem;
+}
+
+/* 5. Navbar -------------------------------------------------------------- */
+.custom-navbar {
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  line-height: 1;
+}
+
+.navbar-brand img {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+}
+
 .custom-navbar .nav-link {
+  color: var(--green);
+  font-family: var(--sans);
+  font-weight: 500;
   padding: 10px 0;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: var(--green-hover);
 }
 
 @media (min-width: 992px) {
   .custom-navbar .nav-link {
-    padding: 8px 12px;
+    padding: 8px 14px;
   }
 }
 
-.headshot {
-  border-radius: 24px;
+/* 6. Layout & section rhythm -------------------------------------------- */
+.section {
+  padding: clamp(52px, 8vw, 96px) 0;
 }
 
-.navbar-brand {
-  font-size: 2.4rem;
+.section--surface {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.footer {
-  background-color: #eee6dc;
-  padding: 30px 0;
-  margin-top: 60px;
-  color: #4a4a4a;
+.section-head {
+  margin-bottom: 2.5rem;
 }
 
-.footer {
-  background-color: #eee6dc;
-  padding: 40px 0;
-  margin-top: 60px;
-  color: #4a4a4a;
-  border-top: 1px solid #d8cfc4;
-}
-
-.sx-verified-seal {
-  margin-left: 24px;
+/* page header band on interior pages */
+.page-header {
   position: relative;
-  top: -6px;
+  overflow: hidden;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(56px, 9vw, 110px) 0 clamp(48px, 7vw, 84px);
 }
 
-.footer-content {
+/* 7. Hero ---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(48px, 8vw, 104px) 0;
+}
+
+.hero-subtext {
+  color: #5d5a55;
+}
+
+.sliding-scale-text {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #5a5a5a;
+  margin-top: 6px;
+}
+
+/* 8. Arch-framed headshot + botanical accents --------------------------- */
+.arch-frame {
+  position: relative;
+  display: inline-block;
+  max-width: 340px;
+  width: 100%;
+}
+
+.arch-frame img.headshot {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 50% 50% 18px 18px / 62% 62% 18px 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px rgba(63, 93, 78, 0.12);
+}
+
+/* blob peeking from behind the arch */
+.arch-frame .arch-accent {
+  position: absolute;
+  z-index: 1;
+  width: 78%;
+  top: -7%;
+  right: -14%;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* generic decorative botanical accents */
+.accent {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.accent-stem {
+  top: 0;
+  right: 4%;
+  height: 78%;
+  max-height: 360px;
+  opacity: 0.6;
+}
+
+.accent-branch {
+  opacity: 0.5;
+}
+
+.accent-blob-bg {
+  opacity: 0.55;
+}
+
+/* keep hero/section content above decorative accents */
+.hero .container,
+.page-header .container,
+.cta-band > .container,
+.cta-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* legacy circular office photo */
+.headshot-circle {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 34px rgba(63, 93, 78, 0.1);
+}
+
+/* 9. Trust strip --------------------------------------------------------- */
+.trust-strip {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.trust-strip__inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 32px;   /* was 16px */
-
-}
-.section-divider {
-  border-bottom: 1px solid #d8cfc4;
-  padding-bottom: 60px;
+  gap: 14px 40px;
+  padding: 18px 0;
 }
 
-.btn-primary {
-  background-color: #3f5d4e;
-  border-color: #3f5d4e;
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
-.btn-primary:hover {
-  background-color: #2f4a3d;
-  border-color: #2f4a3d;
+.trust-item svg {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  stroke: var(--green);
 }
 
-section {
-  background-color: #f5efe7;
-  border-radius: 16px;
-  padding: 60px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+.trust-sep {
+  width: 1px;
+  height: 22px;
+  background-color: var(--border);
 }
 
-.service-item {
-  border-bottom: 1px solid #d8cfc4;
-  padding-bottom: 18px;
+@media (max-width: 575.98px) {
+  .trust-sep {
+    display: none;
+  }
 }
 
-.service-item p {
-  color: #4a4a4a;
+/* 10. Cards + icon chips ------------------------------------------------- */
+.card-soft {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  height: 100%;
+  /* keep long content (service / fee / contact card copy) inside the border */
+  overflow-wrap: break-word;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card-soft:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(63, 93, 78, 0.08);
+}
+
+.card-soft h2,
+.card-soft h3 {
+  color: var(--green);
+}
+
+.card-soft p {
+  color: var(--text);
   margin-bottom: 0;
 }
 
-.service-item h2 {
-  color: #3f5d4e;
+/* break long unbreakable strings such as the contact email address */
+.card-soft a {
+  overflow-wrap: anywhere;
 }
 
-.fee-item {
-  border-bottom: 1px solid #d8cfc4;
-  padding-bottom: 18px;
+.card-link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
 }
 
-.fee-item h2 {
-  color: #3f5d4e;
+.card-link:hover {
+  color: inherit;
 }
 
-.fee-item p {
-  color: #4a4a4a;
-  margin-bottom: 0;
+/* icon chip */
+.icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--tint);
+  margin-bottom: 1.1rem;
 }
 
+.icon-chip svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--green);
+  stroke-width: 1.75;
+  fill: none;
+}
+
+/* inline line icons used outside chips */
+.line-icon {
+  stroke: var(--green);
+  stroke-width: 1.75;
+  fill: none;
+}
+
+/* 11. Insurance table ---------------------------------------------------- */
 .insurance-table {
-  border: 1px solid #d8cfc4;
-  border-radius: 16px;
-  padding: 24px;
-  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  background-color: var(--surface);
 }
 
 .insurance-table__header h2 {
-  color: #3f5d4e;
+  color: var(--green);
 }
 
 .insurance-table__grid {
@@ -176,14 +444,14 @@ section {
 }
 
 .insurance-col {
-  padding: 18px;
-  border: 1px solid #d8cfc4;
+  padding: 22px;
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background-color: #f5efe7; /* your in-between card tone */
+  background-color: var(--bg);
 }
 
 .insurance-col h3 {
-  color: #3f5d4e;
+  color: var(--green);
 }
 
 .insurance-list {
@@ -195,58 +463,261 @@ section {
 }
 
 .insurance-list li {
-  padding: 10px 12px;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
-  background-color: #f5efe7;
-  color: #4a4a4a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background-color: var(--surface);
+  color: var(--text);
+  min-width: 0; /* allow flex text to shrink/wrap instead of overflowing */
+  overflow-wrap: break-word;
+}
+
+.insurance-list li svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  stroke: var(--green);
+  stroke-width: 2;
+  fill: none;
 }
 
 .insurance-note {
-  color: #4a4a4a;
+  color: var(--text);
 }
 
-
-.contact-card {
-  border: 1px solid #d8cfc4;
-  border-radius: 14px;
-  padding: 20px;
-  background-color: #f5efe7;
+/* 12. Scene image bands -------------------------------------------------- */
+.scene-band img,
+.scene-img {
+  width: 100%;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  display: block;
 }
 
-.contact-card h2 {
-  color: #3f5d4e;
+.scene-band {
+  overflow: hidden;
 }
 
-.contact-card a {
-  color: #3f5d4e;
-  text-decoration: none;
+.scene-side {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(63, 93, 78, 0.08);
 }
 
-.contact-card a:hover {
-  text-decoration: underline;
+.scene-side img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+/* 13. Forms -------------------------------------------------------------- */
+.form-label {
+  font-weight: 500;
+  color: var(--green);
+  font-size: 0.92rem;
+}
+
 .form-control {
-  background-color: #f5efe7;
-  border: 1px solid #d8cfc4;
-  color: #4a4a4a;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  padding: 0.7rem 0.9rem;
 }
 
 .form-control:focus {
-  background-color: #f7f2ec;
-  border-color: #3f5d4e;
-  box-shadow: none;
+  background-color: #fbf7f1;
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.18rem rgba(63, 93, 78, 0.18);
+  color: var(--text);
 }
 
-.sliding-scale-text {
-  font-size: 0.8rem;
-  font-style: italic;
-  color: #5a5a5a;
-  margin-top: 6px;
+.form-control::placeholder {
+  color: #9b948a;
 }
 
+.disclaimer {
+  font-size: 0.88rem;
+  color: #6b6b6b;
+}
+
+/* 14. CTA band ----------------------------------------------------------- */
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--green);
+  border-radius: 22px;
+  padding: clamp(40px, 6vw, 76px);
+  color: var(--on-green);
+}
+
+.cta-band h2,
+.cta-band h3 {
+  color: var(--surface);
+}
+
+.cta-band p {
+  color: var(--on-green);
+  margin-bottom: 0;
+}
+
+.cta-band .accent-branch {
+  top: -10%;
+  right: -4%;
+  width: 320px;
+  max-width: 55%;
+  opacity: 0.22;
+  filter: brightness(1.7) saturate(0.6);
+}
+
+/* compact horizontal CTA card variant */
+.cta-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* 15. Footer ------------------------------------------------------------- */
+.footer {
+  background-color: var(--bg);
+  padding: 40px 0;
+  margin-top: 0;
+  color: var(--text);
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 0;
+  color: #6b6b6b;
+  font-size: 0.92rem;
+}
+
+.sx-verified-seal {
+  margin-left: 0;
+  position: relative;
+  top: 0;
+}
+
+/* 16. Utilities & responsive tweaks ------------------------------------- */
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.section-divider {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 60px;
+}
+
+/* hide crowding decorative accents on small screens */
+@media (max-width: 991.98px) {
+  .accent-stem,
+  .hide-sm-accent {
+    display: none;
+  }
+}
+
+/* hero headshot used on landing pages (kept for backward compatibility) */
 .hero-headshot1 {
-  max-width: 300px;
-  aspect-ratio: 3 / 4;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
+}
+
+/* 17. State selector + Washington private-pay card ---------------------- */
+.state-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.state-toggle {
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--green);
+  background-color: transparent;
+  color: var(--green);
+  font-family: var(--sans);
+  font-weight: 500;
+  padding: 0.55rem 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.state-toggle:hover {
+  background-color: rgba(63, 93, 78, 0.08);
+}
+
+.state-toggle[aria-pressed="true"] {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: var(--surface);
+}
+
+.state-toggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.state-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: clamp(28px, 5vw, 44px);
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.state-panel__heading {
+  color: var(--green);
+}
+
+.state-panel__body {
+  color: var(--text);
+  max-width: 52ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* small status tag used in the panel and on the fees WA card */
+.state-tag {
+  display: inline-block;
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--green);
+  background-color: var(--tint);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.28rem 0.85rem;
+}
+
+/* fees state panels — only the selected state's panel is shown.
+   All three states use the standard .card-soft shell (identical styling). */
+.fees-panel[hidden] {
+  display: none;
+}
+
+/* insurance list flows into multiple columns to fill the full-width card */
+.insurance-list--grid {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }

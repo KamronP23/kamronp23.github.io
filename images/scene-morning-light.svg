@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-labelledby="t1 d1">
+  <title id="t1">Morning light over rolling hills</title>
+  <desc id="d1">Flat illustration of a sun rising over layered sage-green hills with quiet trees, in warm cream tones.</desc>
+  <rect width="1600" height="520" fill="#f5efe7"/>
+  <circle cx="1180" cy="190" r="240" fill="#efe5d6"/>
+  <circle cx="1180" cy="190" r="170" fill="#eaddc8"/>
+  <circle cx="1180" cy="190" r="105" fill="#e3d0b2"/>
+  <path d="M0 332 C220 282 430 300 640 322 C880 348 1130 318 1360 296 C1450 288 1540 292 1600 300 L1600 520 L0 520 Z" fill="#c3d0c4"/>
+  <path d="M0 396 C260 348 520 372 780 392 C1040 412 1320 376 1600 360 L1600 520 L0 520 Z" fill="#9db3a4"/>
+  <g fill="#74917f">
+    <ellipse cx="246" cy="362" rx="34" ry="42"/>
+    <rect x="242" y="392" width="8" height="26" rx="3"/>
+    <ellipse cx="308" cy="376" rx="24" ry="30"/>
+    <rect x="305" y="396" width="6" height="20" rx="3"/>
+    <ellipse cx="1248" cy="346" rx="30" ry="38"/>
+    <rect x="1244" y="372" width="8" height="24" rx="3"/>
+    <ellipse cx="1316" cy="362" rx="20" ry="26"/>
+    <rect x="1313" y="380" width="6" height="18" rx="3"/>
+  </g>
+  <path d="M0 468 C320 424 660 444 960 460 C1200 472 1430 452 1600 440 L1600 520 L0 520 Z" fill="#5d7d6b"/>
+  <g fill="#3f5d4e">
+    <ellipse cx="540" cy="440" rx="40" ry="50"/>
+    <rect x="535" y="476" width="10" height="30" rx="4"/>
+    <ellipse cx="624" cy="456" rx="28" ry="36"/>
+    <rect x="620" y="482" width="8" height="24" rx="3"/>
+    <ellipse cx="1080" cy="452" rx="34" ry="44"/>
+    <rect x="1076" y="484" width="9" height="26" rx="4"/>
+  </g>
+  <g stroke="#5f5e5a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M820 150 q12 -12 24 0 q12 -12 24 0"/>
+    <path d="M900 120 q10 -10 20 0 q10 -10 20 0"/>
+    <path d="M760 196 q9 -9 18 0 q9 -9 18 0"/>
+  </g>
+</svg>

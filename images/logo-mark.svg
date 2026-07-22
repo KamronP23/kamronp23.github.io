@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kindred Mental Health leaf mark">
+  <circle cx="32" cy="32" r="32" fill="#3f5d4e"/>
+  <path d="M32 50 C32 40 32 30 32 18" stroke="#f5efe7" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M32 38 C22 35 17 26 19 18 C29 22 34 31 32 38 Z" fill="#f5efe7"/>
+  <path d="M32 30 C42 27 47 18 45 10 C35 14 30 23 32 30 Z" fill="#cfdcd3"/>
+</svg>

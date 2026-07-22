@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-labelledby="t2 d2">
+  <title id="t2">Calm water at dusk</title>
+  <desc id="d2">Flat illustration of still water with a low sun and soft reflections, framed by quiet headlands, in warm cream and sage tones.</desc>
+  <rect width="1600" height="520" fill="#f5efe7"/>
+  <circle cx="800" cy="240" r="200" fill="#efe5d6"/>
+  <circle cx="800" cy="240" r="120" fill="#e3d0b2"/>
+  <rect y="280" width="1600" height="240" fill="#cdd8ce"/>
+  <g fill="#e9dfcd">
+    <rect x="700" y="304" width="200" height="10" rx="5"/>
+    <rect x="730" y="330" width="140" height="9" rx="4.5"/>
+    <rect x="756" y="356" width="88" height="8" rx="4"/>
+    <rect x="776" y="380" width="48" height="7" rx="3.5"/>
+  </g>
+  <g fill="#aabfb1">
+    <rect x="180" y="322" width="120" height="8" rx="4"/>
+    <rect x="1320" y="346" width="150" height="8" rx="4"/>
+    <rect x="420" y="402" width="170" height="9" rx="4.5"/>
+    <rect x="1060" y="424" width="130" height="9" rx="4.5"/>
+    <rect x="240" y="452" width="200" height="10" rx="5"/>
+    <rect x="1240" y="468" width="180" height="10" rx="5"/>
+  </g>
+  <path d="M0 280 C120 250 260 244 380 262 C300 276 160 282 0 280 Z" fill="#74917f"/>
+  <path d="M1600 280 C1480 246 1330 240 1210 260 C1310 276 1460 282 1600 280 Z" fill="#74917f"/>
+  <path d="M0 280 L0 320 C200 312 320 300 380 262 C260 244 120 250 0 280 Z" fill="#5d7d6b"/>
+  <path d="M1600 280 L1600 326 C1400 318 1280 302 1210 260 C1330 240 1480 246 1600 280 Z" fill="#5d7d6b"/>
+  <g stroke="#5f5e5a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M520 140 q11 -11 22 0 q11 -11 22 0"/>
+    <path d="M1040 112 q10 -10 20 0 q10 -10 20 0"/>
+  </g>
+</svg>

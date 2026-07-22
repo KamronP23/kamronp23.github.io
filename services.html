@@ -2,15 +2,23 @@
 <html lang="en">
   <head>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/svg+xml" href="images/logo-mark.svg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Virtual individual therapy for adults in California and Florida. Support for anxiety, autism, relationships, burnout, depression, dating, and life transitions."
+      content="Virtual individual therapy for adults in California, Florida, and Washington. Support for anxiety, autism, relationships, burnout, depression, dating, and life transitions."
     />
     <title>Services | Kindred Mental Health</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts: Source Serif 4 (headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -46,7 +54,10 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
       <div class="container">
-        <a class="navbar-brand fw-semibold" href="/">Kindred Mental Health</a>
+        <a class="navbar-brand fw-semibold" href="index.html">
+          <img src="images/logo-mark.svg" alt="" aria-hidden="true" />
+          <span>Kindred Mental Health</span>
+        </a>
 
         <button
           class="navbar-toggler"
@@ -61,9 +72,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navMenu">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
 
             <li class="nav-item">
@@ -75,117 +86,240 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a class="btn btn-primary btn-nav-cta" href="contact.html"
+                >Book a Session</a
+              >
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <section class="container my-5">
-      <div class="row">
-        <div class="col-lg-8">
-          <h1 class="mb-3">Services</h1>
-          <p class="lead mb-4">
-            I offer virtual individual therapy for adults across California and
-            Florida. Sessions are collaborative, practical, and tailored to your
-            goals.
-          </p>
-        </div>
-      </div>
-
-      <div class="row g-4 mt-1">
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Anxiety & Stress</h2>
-            <p class="mb-0">
-              Build coping skills, reduce overwhelm, and create steadier
-              day-to-day routines.
+    <!-- Page header -->
+    <header class="page-header">
+      <img
+        src="images/accent-stem.svg"
+        class="accent accent-stem"
+        alt=""
+        aria-hidden="true"
+      />
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow">What I help with</span>
+            <h1 class="mb-3">Services</h1>
+            <p class="lead mb-0 prose">
+              I offer virtual individual therapy for adults across California,
+              Florida, and Washington. Sessions are collaborative, practical,
+              and tailored to your goals.
             </p>
           </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Depression</h2>
-            <p class="mb-0">
-              Work toward motivation, self-compassion, and meaningful
-              connection.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Burnout & Work Stress</h2>
-            <p class="mb-0">
-              Set boundaries, manage pressure, and rebuild balance and clarity.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Relationships & Communication</h2>
-            <p class="mb-0">
-              Strengthen communication, attachment patterns, boundaries, and
-              trust.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Dating & Life Transitions</h2>
-            <p class="mb-0">
-              Navigate big changes, identity shifts, and decision points with
-              support.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Problem Solving & Social Confidence</h2>
-            <p class="mb-0">
-              Build practical tools for confidence, connection, and everyday
-              challenges.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">
-              Attention Deficit Hyperactivity Disorder (ADHD)
-            </h2>
-            <p class="mb-0">
-              Support with focus, motivation, organization, emotional
-              regulation, and navigating work or relationships.
-            </p>
-          </div>
-        </div>
-
-        <!-- NEW -->
-        <div class="col-md-6">
-          <div class="service-item">
-            <h2 class="h5 mb-2">Autism</h2>
-            <p class="mb-0">
-              Support with social connection, identity, communication, and
-              navigating the world in a way that feels authentic.
-            </p>
+          <div class="col-lg-5 d-none d-lg-block">
+            <div class="scene-side">
+              <img
+                src="images/scene-window-plant.svg"
+                alt="Illustration of a quiet room with a potted plant beside a tall arched window"
+              />
+            </div>
           </div>
         </div>
       </div>
+    </header>
 
-      <div class="text-center mt-5">
-        <a class="btn btn-primary px-4" href="contact.html"
-          >Schedule a Consultation</a
-        >
+    <section class="section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M3 12c3 0 3-4 6-4s3 8 6 8 3-4 6-4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Anxiety &amp; Stress</h2>
+              <p class="mb-0">
+                Build coping skills, reduce overwhelm, and create steadier
+                day-to-day routines.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Depression</h2>
+              <p class="mb-0">
+                Work toward motivation, self-compassion, and meaningful
+                connection.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 3c0 4-4 4-4 8a4 4 0 0 0 8 0c0-2-1-3-2-4 0 2-2 2-2 0z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Burnout &amp; Work Stress</h2>
+              <p class="mb-0">
+                Set boundaries, manage pressure, and rebuild balance and clarity.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 20s-7-4.5-7-9.5A4 4 0 0 1 12 7a4 4 0 0 1 7 3.5C19 15.5 12 20 12 20z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Relationships &amp; Communication</h2>
+              <p class="mb-0">
+                Strengthen communication, attachment patterns, boundaries, and
+                trust.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path
+                    d="M15 9l-2 4-4 2 2-4 4-2z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Dating &amp; Life Transitions</h2>
+              <p class="mb-0">
+                Navigate big changes, identity shifts, and decision points with
+                support.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M9 18h6M10 21h4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.2 1 2.5h6c0-1.3.2-1.8 1-2.5A6 6 0 0 0 12 3z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Problem Solving &amp; Social Confidence</h2>
+              <p class="mb-0">
+                Build practical tools for confidence, connection, and everyday
+                challenges.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M14 19l2 2l4 -4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M9 8h4" stroke-linecap="round" />
+                  <path d="M9 12h2" stroke-linecap="round" />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">
+                Attention Deficit Hyperactivity Disorder (ADHD)
+              </h2>
+              <p class="mb-0">
+                Support with focus, motivation, organization, emotional
+                regulation, and navigating work or relationships.
+              </p>
+            </div>
+          </div>
+
+          <!-- NEW -->
+          <div class="col-md-6">
+            <div class="card-soft">
+              <span class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h2 class="h5 mb-2">Autism</h2>
+              <p class="mb-0">
+                Support with social connection, identity, communication, and
+                navigating the world in a way that feels authentic.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compact horizontal CTA card -->
+        <div class="cta-band cta-card mt-5">
+          <img
+            src="images/accent-branch.svg"
+            class="accent accent-branch"
+            alt=""
+            aria-hidden="true"
+          />
+          <div>
+            <h2 class="h4 mb-1">Not sure where to start?</h2>
+            <p>A free 15-minute consultation is a low-pressure first step.</p>
+          </div>
+          <a class="btn btn-cream px-4" href="contact.html"
+            >Schedule a Consultation</a
+          >
+        </div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="footer-content">
-        <p>© 2026 Kamron Poosti, LMFT #124629</p>
+        <p>© 2026 Kamron Poosti, LMFT · CA #124629 · WA MFT.LF.70083737</p>
 
         <!-- Professional verification provided by Psychology Today -->
         <a

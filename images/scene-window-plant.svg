@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="t3 d3">
+  <title id="t3">A quiet room with a plant by an arched window</title>
+  <desc id="d3">Flat illustration of a potted plant beside a tall arched window with soft light, in warm cream and sage tones.</desc>
+  <rect width="900" height="1100" fill="#eee6dc"/>
+  <rect y="880" width="900" height="220" fill="#e3d8c7"/>
+  <path d="M250 160 C250 60 650 60 650 160 L650 760 L250 760 Z" fill="#f5efe7"/>
+  <path d="M270 168 C270 84 630 84 630 168 L630 740 L270 740 Z" fill="#efe5d2"/>
+  <circle cx="450" cy="300" r="86" fill="#e3d0b2"/>
+  <path d="M286 740 L430 96 L470 96 L330 740 Z" fill="#f5efe7" opacity="0.7"/>
+  <rect x="443" y="120" width="14" height="620" fill="#f5efe7"/>
+  <rect x="270" y="430" width="360" height="14" fill="#f5efe7"/>
+  <rect x="236" y="744" width="428" height="26" rx="8" fill="#cfc2ac"/>
+  <path d="M470 800 C470 880 430 920 430 980" stroke="#5d7d6b" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M470 800 C500 850 560 870 560 950" stroke="#5d7d6b" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M460 820 C420 850 360 860 340 930" stroke="#5d7d6b" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <g fill="#3f5d4e">
+    <path d="M470 800 C430 720 440 640 486 590 C534 648 528 740 470 800 Z"/>
+    <path d="M470 806 C396 770 350 706 356 638 C434 664 478 730 470 806 Z" fill="#5d7d6b"/>
+    <path d="M474 806 C548 776 596 716 592 648 C512 670 466 734 474 806 Z" fill="#74917f"/>
+    <path d="M340 930 C300 902 282 856 292 812 C344 832 368 882 340 930 Z" fill="#74917f"/>
+    <path d="M560 950 C600 920 616 872 604 828 C552 850 530 902 560 950 Z" fill="#5d7d6b"/>
+  </g>
+  <path d="M360 952 L540 952 L516 1080 L384 1080 Z" fill="#b89a6e"/>
+  <rect x="348" y="936" width="204" height="30" rx="10" fill="#a8875c"/>
+  <ellipse cx="450" cy="1086" rx="150" ry="10" fill="#d8cbb4"/>
+</svg>

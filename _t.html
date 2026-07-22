@@ -113,7 +113,7 @@
       <div class="container">
         <div class="row align-items-center g-5">
           <div class="col-lg-7 text-center text-lg-start">
-            <span class="eyebrow">Virtual therapy · CA · FL · WA</span>
+            <span class="eyebrow">Virtual therapy · CA &amp; FL</span>
             <h1 class="display-5 mb-3">
               Virtual Therapy for Adults in California, Florida &amp; Washington
             </h1>
@@ -182,25 +182,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            California LMFT #124629
-          </span>
-          <span class="trust-sep" aria-hidden="true"></span>
-          <span class="trust-item">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"
-                stroke-width="1.75"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M9 12l2 2 4-4"
-                stroke-width="1.75"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            Washington LMFT MFT.LF.70083737
+            Licensed LMFT #124629
           </span>
           <span class="trust-sep" aria-hidden="true"></span>
           <span class="trust-item">
@@ -236,7 +218,7 @@
               <path d="M3 10h18" stroke-width="1.75" stroke-linecap="round" />
               <path d="M7 15h4" stroke-width="1.75" stroke-linecap="round" />
             </svg>
-            Insurance accepted in CA &amp; FL
+            Most major insurance accepted
           </span>
         </div>
       </div>
@@ -378,11 +360,11 @@
           <!-- Default (California) content — present so it works without JS -->
           <span class="state-tag">Insurance accepted</span>
           <h3 class="state-panel__heading mt-3 mb-2">
-            Getting started in California
+            Good news — I’m in-network in California
           </h3>
           <p class="state-panel__body mb-4">
-            I’m in-network with most major insurance plans here. You can verify
-            your coverage and book a session instantly through my secure portal.
+            I accept most major insurance plans. You can verify your coverage and
+            book a session instantly through my secure portal.
           </p>
           <a
             class="btn btn-primary px-4"
@@ -411,9 +393,8 @@
             <h2 class="mb-3">About Me</h2>
             <div class="prose">
               <p>
-                I’m Kamron Poosti, a Licensed Marriage and Family Therapist and
-                former developer with over 10 years of experience working in the
-                mental health field.
+                I’m Kamron Poosti, a Licensed Marriage and Family Therapist with
+                over 10 years of experience working in the mental health field.
                 Having spent most of my life in Los Angeles, I work with adults
                 navigating anxiety, depression, loneliness, relationship
                 challenges, dating, and career transitions.
@@ -426,10 +407,10 @@
               </p>
               <p>
                 Outside of therapy, I enjoy the outdoors, travel, video games,
-                pop culture, and building things. My technical background — and
-                the mental health tech company I’m currently building — gives me a
-                familiar footing with clients in tech, and a useful perspective on
-                work stress, burnout, identity, and navigating change.
+                pop culture, and building things. I have a background in software
+                development and I’m currently in the process of building a mental
+                health tech company, which gives me a unique perspective on work
+                stress, burnout, identity, and navigating change.
               </p>
               <p>
                 I often use shared interests as a way to connect and make therapy
@@ -515,7 +496,7 @@
 
     <footer class="footer">
       <div class="footer-content">
-        <p>© 2026 Kamron Poosti, LMFT · CA #124629 · WA MFT.LF.70083737</p>
+        <p>© 2026 Kamron Poosti, LMFT #124629</p>
 
         <!-- Professional verification provided by Psychology Today -->
         <a
@@ -545,27 +526,30 @@
         var STATES = {
           california: {
             tag: "Insurance accepted",
-            heading: "Getting started in California",
+            priv: false,
+            heading: "Good news — I’m in-network in California",
             body:
-              "I’m in-network with most major insurance plans here. You can verify your coverage and book a session instantly through my secure portal.",
+              "I accept most major insurance plans. You can verify your coverage and book a session instantly through my secure portal.",
             ctaText: "Book a session online",
             ctaHref: HEADWAY,
             blank: true,
           },
           florida: {
             tag: "Insurance accepted",
-            heading: "Getting started in Florida",
+            priv: false,
+            heading: "Good news — I’m in-network in Florida",
             body:
-              "I’m in-network with most major insurance plans here. You can verify your coverage and book a session instantly through my secure portal.",
+              "I accept most major insurance plans. You can verify your coverage and book a session instantly through my secure portal.",
             ctaText: "Book a session online",
             ctaHref: HEADWAY,
             blank: true,
           },
           washington: {
             tag: "Private pay",
-            heading: "Getting started in Washington",
+            priv: true,
+            heading: "Washington sessions are private pay",
             body:
-              "Washington sessions are private pay at $150 each — no insurance authorizations or session limits to work around. I can provide a superbill for possible out-of-network reimbursement. Reach out and we’ll find a time that works.",
+              "I’m not in-network with insurance in Washington. Sessions are $150 each, and I can provide a superbill for possible out-of-network reimbursement. Reach out and we’ll find a time that works.",
             ctaText: "Reach out to get started",
             ctaHref: waHref,
             blank: false,
@@ -577,7 +561,9 @@
           if (!s) return;
           var attrs = s.blank ? ' target="_blank" rel="noopener"' : "";
           panel.innerHTML =
-            '<span class="state-tag">' +
+            '<span class="state-tag' +
+            (s.priv ? " state-tag--private" : "") +
+            '">' +
             s.tag +
             "</span>" +
             '<h3 class="state-panel__heading mt-3 mb-2">' +
@@ -608,5 +594,6 @@
         });
       })();
     </script>
-  </body>
+  <script>window.addEventListener('load',function(){document.querySelector('.state-toggle[data-state=california]').click();});</script>
+</body>
 </html>

@@ -721,3 +721,54 @@ img {
 .insurance-list--grid {
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
+
+
+/* --- Legal footer links + Florida free-consultation notice --- */
+.footer-legal {
+  font-size: 0.6rem;
+  line-height: 1.9;
+  margin-top: 1.25rem;
+  opacity: 0.38;
+  letter-spacing: 0.01em;
+}
+.footer-legal:hover,
+.footer-legal:focus-within {
+  opacity: 0.85;
+}
+.footer-legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+.page-notes {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  max-width: 46rem;
+  margin: 4rem auto 0;
+  padding-top: 1rem;
+}
+.page-notes p {
+  font-size: 0.66rem;
+  line-height: 1.65;
+  color: #9aa39f;
+  margin: 0;
+  text-align: left;
+}
+.page-notes sup {
+  margin-right: 0.35em;
+}
+a.note-ref {
+  font-size: 0.55em;
+  vertical-align: super;
+  line-height: 0;
+  text-decoration: none;
+  color: #9aa39f;
+  margin-left: 0.15em;
+}
+a.note-ref:hover,
+a.note-ref:focus-visible {
+  color: inherit;
+}

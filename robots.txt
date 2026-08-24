@@ -1,0 +1,30 @@
+# kindredmentalhealth.com
+
+# Search and AI retrieval crawlers. These decide whether this site can be cited
+# in Google, Bing, ChatGPT, Claude, and Perplexity answers. Keep them allowed.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Everything else.
+User-agent: *
+Allow: /
+
+Sitemap: https://kindredmentalhealth.com/sitemap.xml

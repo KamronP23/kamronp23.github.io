@@ -1,0 +1,35 @@
+name: A1 Compliance Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compliance:
+    name: Compliance rules
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run compliance gate
+        run: python3 tools/compliance-check.py
+
+      - name: Explain a failure
+        if: failure()
+        run: |
+          echo "::notice::The A1 Compliance Gate blocked this change."
+          echo "Each failure above cites the statute behind it."
+          echo "Fix the content. Do not delete a rule to make the build pass."
+          echo "Reproduce locally:  python3 tools/compliance-check.py"

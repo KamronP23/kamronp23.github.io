@@ -86,6 +86,41 @@ Things a past session already checked, so a future one doesn't re-flag them:
   actual MHMDA tracking surface on the condition pages is Psychology Today's
   `verified-seal.js` and Google Tag Manager/GA4; Kamron has chosen to leave those.
 
+## The compliance gate — run it, don't work around it
+
+`tools/compliance-check.py` encodes the Hard Rules above as 14 mechanical checks,
+each carrying its statutory citation in a comment. It needs no API key, no token
+and no network: it is pattern matching over the repo's own files.
+
+**Run it before every commit:**
+
+```
+python3 tools/compliance-check.py
+```
+
+Exit 0 = clean. Exit 1 = blocking failure. It also runs in GitHub Actions on
+every pull request and every push to `main`
+(`.github/workflows/compliance.yml`), where failures appear as inline
+annotations on the offending line.
+
+Rules R1–R10 are statutory and map to the Hard Rules. R11 catches unresolved
+`[[CONFIRM]]` placeholders. R12 catches a JSON-LD `priceRange` that disagrees
+with the visible price. R13 warns on a missing canonical. R14 catches JSON-LD
+that does not parse.
+
+**If the gate fails, fix the content.** Do not delete a rule, loosen a regex, or
+add a blanket exception to make the build pass. If a rule is genuinely wrong,
+add a narrow documented exception beside it explaining why, and tell Kamron.
+
+Two exceptions already live in the script and must not be removed: "Psychology
+Today" (the directory — naming it is not a title claim) and the actual conferred
+degree, "MA in Clinical Psychology, Marriage and Family Therapy."
+
+R12 exists because the session rate lives in three places that a human reading
+the rendered page cannot see: two JavaScript string literals inside the state
+selector (`contact.html`, `index.html`) and the JSON-LD `priceRange`. Grep the
+raw files when changing anything numeric. Do not trust a visual review.
+
 ## Standing preference
 
 **Legal minimum only.** Kamron does not want anything on the site that isn't a
@@ -109,18 +144,32 @@ site-wide.
 
 ## Current state (Aug 2026)
 
-Branch `compliance` has **uncommitted** work: the four pages above, footer legal
-links on all 11 pages, a JSON-LD entity graph in `index.html`, `robots.txt`,
-a rewritten `sitemap.xml`, the Florida footnote, and the deletion of a stale
-`_t.html`.
+**12 pages, all live and committed to `main`.** The site is clean against the
+compliance gate as of 26 Aug 2026.
 
-**Before committing:** `grep -rn "\[\[CONFIRM" *.html` — 22 placeholders, six real
-values (privacy contact email, phone, business mailing address, FL license number,
-vendor names, and verifying the CMS help line number). They render as visible text,
-so the branch must not be pushed until they're filled in.
+Recent, in order:
 
-`notice-of-privacy-practices.html` is a draft. Kamron should ask his malpractice
-carrier for their vetted template and replace it.
+- `online-therapy-washington.html` shipped (`23d4f66`). The uncontested primary
+  query. 446 body words, six question-phrased `<h2>`s, canonical, FL footnote.
+- **Session rate is $250 sitewide**, all three states, same commit. All
+  sliding-scale language preserved verbatim. Psychology Today updated to match.
+- `.DS_Store` untracked and gitignored (`26d2f15`).
+- A1 compliance gate added, plus the FS §456.062 footnote on `contact.html` and
+  `services.html`, which had advertised the free consult without it (`e79769e`).
+  The gate found that gap on its first run.
+- `about.html` is **deleted**. The bio lives on `index.html` in the About Me /
+  My Approach sections. **Do not recreate an About page.**
+- Florida is a §456.47 telehealth registration (TPMF1707), **not a license**.
+  Corrected everywhere; R9 now enforces it.
+
+Inbound links to `online-therapy-washington.html` are `services.html`,
+`financial-anxiety.html` and `job-loss-and-career-therapy.html`, plus the
+sitemap. **Not linked from `index.html` or the nav — Kamron was offered
+homepage, footer and nav placement on 26 Aug and chose to leave it. Do not
+re-propose it.**
+
+`notice-of-privacy-practices.html` is still a draft. Kamron should ask his
+malpractice carrier for their vetted template and replace it.
 
 ## Known issues, not yet fixed
 
@@ -128,13 +177,12 @@ carrier for their vetted template and replace it.
   fix is to drop the textarea for a bounded dropdown and link out to a hosted
   HIPAA-compliant page (Hushmail or MailHippo) for anything private.
 - No crisis line on the contact page. Should say: call or text 988, or 911.
-- `about.html` was restored to the nav but its copy still says "Los Angeles" and
-  its meta description omits Washington.
 - GTM, GA4 (with a `generate_lead` event capturing page path) and a Psychology
-  Today badge script run on every page including the two condition pages. Kamron
-  chose to leave these for now. Don't add more.
+  Today badge script run on every page including the condition pages. Kamron
+  chose to leave these for now. Don't add more — R5 will block new ones.
 - Verify GitHub Pages "Enforce HTTPS" is on. Chrome 154 (Oct 2026) shows a
   full-page interstitial for plain-HTTP visits.
+- `mens-mental-health.html` has 0 inbound internal links, by Kamron's choice.
 
 ## Conventions
 
@@ -152,6 +200,7 @@ carrier for their vetted template and replace it.
 - Always state which states a service is available in. It's both a compliance
   point and what lets an assistant filter you correctly.
 - Never commit directly to `main` — it publishes instantly. Work on a branch.
+- Run `python3 tools/compliance-check.py` before every commit. Green or don't ship.
 
 ## Background
 

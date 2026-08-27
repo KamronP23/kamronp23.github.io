@@ -88,7 +88,7 @@ Things a past session already checked, so a future one doesn't re-flag them:
 
 ## The compliance gate — run it, don't work around it
 
-`tools/compliance-check.py` encodes the Hard Rules above as 14 mechanical checks,
+`tools/compliance-check.py` encodes the Hard Rules above as 15 mechanical checks,
 each carrying its statutory citation in a comment. It needs no API key, no token
 and no network: it is pattern matching over the repo's own files.
 
@@ -105,8 +105,20 @@ annotations on the offending line.
 
 Rules R1–R10 are statutory and map to the Hard Rules. R11 catches unresolved
 `[[CONFIRM]]` placeholders. R12 catches a JSON-LD `priceRange` that disagrees
-with the visible price. R13 warns on a missing canonical. R14 catches JSON-LD
-that does not parse.
+with the visible price. R13 fails a canonical that points anywhere but the
+page's own URL. R14 catches JSON-LD that does not parse. R15 fails a meta
+description over 160 characters.
+
+**R13 exists because of how new pages get built here.** The convention is to
+copy a sibling page — which means the copied canonical still points at the page
+it came from, telling search engines "this is a duplicate, index the other one."
+The page then never indexes, renders perfectly in a browser, and reports no
+error anywhere. If you create a page by copying, the canonical is the first
+thing to change.
+
+**R15 exists because nothing renders a meta description on the page itself.**
+Six pages drifted past 160 characters unnoticed until Bing Webmaster Tools
+flagged one of them. Anything over 160 gets truncated mid-sentence in results.
 
 **If the gate fails, fix the content.** Do not delete a rule, loosen a regex, or
 add a blanket exception to make the build pass. If a rule is genuinely wrong,
@@ -120,6 +132,31 @@ R12 exists because the session rate lives in three places that a human reading
 the rendered page cannot see: two JavaScript string literals inside the state
 selector (`contact.html`, `index.html`) and the JSON-LD `priceRange`. Grep the
 raw files when changing anything numeric. Do not trust a visual review.
+
+
+## Bing, IndexNow, and AI search
+
+Bing matters more than its search share suggests: AI assistants retrieve from
+existing search indexes rather than crawling the open web, and ChatGPT's search
+leans on Bing. A page Bing has not indexed is invisible to that surface no
+matter how good it is.
+
+`fc60f20323e8c374a2b211be15acdc25.txt` at the site root is the **IndexNow
+verification key. Do not delete it.** It looks like junk in a directory
+listing. If it disappears, IndexNow submissions silently stop being accepted
+with no error anywhere. `.github/workflows/indexnow.yml` pings Bing on every
+push to `main`, 90 seconds after deploy, via `tools/indexnow.py`.
+
+**Bing Webmaster Tools will report two things that are not problems:**
+
+1. *"Discovered but not crawled — URL cannot appear on Bing"* with boilerplate
+   about "some issues." That text is shown for every non-indexed state; it is a
+   queue status, not a diagnosis. Click Request Indexing and wait.
+2. *"Alt attribute for images is missing"* on `services.html`, 3 instances.
+   These are the decorative accents (`logo-mark`, `accent-stem`,
+   `accent-branch`), which carry `alt="" aria-hidden="true"` — the correct W3C
+   pattern for decoration. Adding descriptive alt text would make screen-reader
+   accessibility worse and do nothing for SEO. **Leave it. Do not "fix" this.**
 
 ## Standing preference
 

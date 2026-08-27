@@ -452,6 +452,34 @@ for p in PAGES:
 
 
 # ---------------------------------------------------------------------------
+# Rule 16 — No em dashes or en dashes
+# Kamron's explicit style preference, 27 Aug 2026: regular hyphens only.
+# Every one was stripped sitewide that day. This rule exists because an
+# assistant writing new copy will reach for an em dash by reflex, and nobody
+# reviewing a rendered page notices a dash is the wrong width.
+# Applies to the literal characters and to the HTML entities.
+# ---------------------------------------------------------------------------
+DASHES = [
+    ("\u2014", "em dash"),
+    ("&mdash;", "&mdash; entity"),
+    ("\u2013", "en dash"),
+    ("&ndash;", "&ndash; entity"),
+]
+
+for p in PAGES:
+    body = text(p)
+    for ch, label in DASHES:
+        c = body.count(ch)
+        if c:
+            n = body.count("\n", 0, body.index(ch)) + 1
+            fail(
+                "R16 dash style",
+                f"{p.name}:{n} uses {label} ({c} occurrence{'s' if c > 1 else ''}). "
+                f"Kamron wants plain hyphens only. Replace with '-'.",
+            )
+
+
+# ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
 def annotate(level: str, rule: str, msg: str, f: str | None, n: int | None) -> None:

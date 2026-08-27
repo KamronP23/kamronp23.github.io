@@ -88,7 +88,7 @@ Things a past session already checked, so a future one doesn't re-flag them:
 
 ## The compliance gate — run it, don't work around it
 
-`tools/compliance-check.py` encodes the Hard Rules above as 15 mechanical checks,
+`tools/compliance-check.py` encodes the Hard Rules above as 16 mechanical checks,
 each carrying its statutory citation in a comment. It needs no API key, no token
 and no network: it is pattern matching over the repo's own files.
 
@@ -107,7 +107,7 @@ Rules R1–R10 are statutory and map to the Hard Rules. R11 catches unresolved
 `[[CONFIRM]]` placeholders. R12 catches a JSON-LD `priceRange` that disagrees
 with the visible price. R13 fails a canonical that points anywhere but the
 page's own URL. R14 catches JSON-LD that does not parse. R15 fails a meta
-description over 160 characters.
+description over 160 characters. R16 fails any em dash or en dash.
 
 **R13 exists because of how new pages get built here.** The convention is to
 copy a sibling page — which means the copied canonical still points at the page

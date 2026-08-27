@@ -407,6 +407,31 @@ for p in PAGES:
 
 
 # ---------------------------------------------------------------------------
+# Rule 15 — Meta description length
+# Not a statute. Search engines truncate past roughly 160 characters, which
+# cuts the pitch off mid-sentence with an ellipsis in the results page. Bing
+# Webmaster Tools flags it as an Error. Six pages drifted over before anyone
+# noticed, because nothing renders a meta description on the page itself.
+# ---------------------------------------------------------------------------
+DESC = re.compile(r'<meta\s+name="description"\s+content="(.*?)"', re.S | re.I)
+
+for p in PAGES:
+    m = DESC.search(text(p))
+    if not m:
+        fail("R15 meta description", f"{p.name} has no meta description.")
+        continue
+    d = " ".join(m.group(1).split())
+    if len(d) > 160:
+        fail("R15 meta description",
+             f"{p.name} meta description is {len(d)} chars; over 160 gets truncated "
+             f"in search results. Trim it.")
+    elif len(d) < 50:
+        warn("R15 meta description",
+             f"{p.name} meta description is only {len(d)} chars — likely leaving "
+             f"useful snippet space unused.")
+
+
+# ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
 def annotate(level: str, rule: str, msg: str, f: str | None, n: int | None) -> None:

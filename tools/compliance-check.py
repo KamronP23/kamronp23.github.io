@@ -381,13 +381,33 @@ if declared and visible_prices and not (declared & visible_prices):
 
 
 # ---------------------------------------------------------------------------
-# Rule 13 — Every page needs a self-referencing canonical
-# Not a statute. Duplicate-content hygiene; this site has had the
-# index.html vs / problem before.
+# Rule 13 — Every page needs a canonical that points at ITSELF
+# Not a statute, but this one is a silent site-killer. New pages here are built
+# by copying a sibling page, and a copied canonical still points at the page it
+# was copied from — which tells search engines "this page is a duplicate, index
+# the other one instead." The page then never indexes, looks completely fine in
+# a browser, and gives no error anywhere. A missing canonical is a warning; a
+# WRONG one is a failure.
 # ---------------------------------------------------------------------------
+CANON = re.compile(r'<link\s+rel=["\']canonical["\']\s+href=["\']([^"\']+)["\']', re.I | re.S)
+SITE = "https://kindredmentalhealth.com"
+
 for p in PAGES:
-    if not re.search(r'rel=["\']canonical', text(p), re.I):
+    m = CANON.search(text(p))
+    if not m:
         warn("R13 canonical", f"{p.name} has no canonical tag.")
+        continue
+
+    href = m.group(1).strip()
+    expected = f"{SITE}/" if p.name == "index.html" else f"{SITE}/{p.name}"
+
+    if href.rstrip("/") != expected.rstrip("/"):
+        fail(
+            "R13 canonical",
+            f"{p.name} declares canonical {href} but should be {expected}. "
+            f"A canonical pointing at another page makes this one unindexable — "
+            f"almost always a leftover from copying a sibling page.",
+        )
 
 
 # ---------------------------------------------------------------------------

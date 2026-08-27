@@ -1,0 +1,35 @@
+name: IndexNow
+
+# Pings Bing when the live site changes, so pages get indexed in hours
+# instead of weeks. Matters for AI search: assistants retrieve from search
+# indexes rather than crawling, and ChatGPT's search leans on Bing.
+#
+# Never fails the build — a missed ping is not worth a red X.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    name: Submit URLs to IndexNow
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Wait for GitHub Pages to deploy
+        run: sleep 90
+
+      - name: Submit sitemap URLs
+        continue-on-error: true
+        run: python3 tools/indexnow.py

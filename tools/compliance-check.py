@@ -75,6 +75,22 @@ def prose(p: pathlib.Path) -> str:
     return s
 
 
+def scan(p: pathlib.Path, rx: re.Pattern, before: int = 90, after: int = 60):
+    """Yield (line_no, match_text, context) for rx over a page's prose.
+
+    The context window is taken from the raw prose and then whitespace-collapsed,
+    so a phrase broken across an HTML line wrap still reads as one phrase. Do NOT
+    replace this with a per-line scan: source HTML wraps prose at ~80 columns, so
+    "a receipt, not a\n guarantee" would lose its negation and false-positive on
+    R3. This bug shipped once and cost a real debugging cycle.
+    """
+    body = prose(p)
+    for m in rx.finditer(body):
+        line_no = body.count("\n", 0, m.start()) + 1
+        window = body[max(0, m.start() - before): m.end() + after]
+        yield line_no, m.group(0), " ".join(window.split())
+
+
 # ---------------------------------------------------------------------------
 # Rule 1 — License block on every page
 # CA 16 CCR §1811 (amended eff. 1 Apr 2026). Legal name as filed with the
@@ -111,17 +127,14 @@ PROTECTED_ALLOWED = [
 ]
 
 for p in PAGES:
-    body = prose(p)
-    for n, line in enumerate(body.split("\n"), start=1):
-        for m in PROTECTED.finditer(line):
-            window = line[max(0, m.start() - 40): m.end() + 40]
-            if any(a.search(window) for a in PROTECTED_ALLOWED):
-                continue
-            fail(
-                "R2 protected term",
-                f'{p.name}:{n} uses "{m.group(0)}" — reserved under BPC §2903. '
-                f'Use "psychotherapy"/"psychotherapist". Context: ...{window.strip()}...',
-            )
+    for n, hit, window in scan(p, PROTECTED, before=45, after=45):
+        if any(a.search(window) for a in PROTECTED_ALLOWED):
+            continue
+        fail(
+            "R2 protected term",
+            f'{p.name}:{n} uses "{hit}" — reserved under BPC §2903. '
+            f'Use "psychotherapy"/"psychotherapist". Context: ...{window}...',
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -144,18 +157,15 @@ NEGATED = re.compile(
 )
 
 for p in PAGES:
-    body = prose(p)
-    for n, line in enumerate(body.split("\n"), start=1):
-        for m in CLAIMS.finditer(line):
-            window = line[max(0, m.start() - 60): m.end() + 30]
-            if NEGATED.search(window):
-                # e.g. "a superbill is a receipt, not a guarantee" — honest, keep
-                continue
-            fail(
-                "R3 superiority/outcome claim",
-                f'{p.name}:{n} contains "{m.group(0)}" — BPC §651 bars superiority '
-                f"and assured-result claims. Context: ...{window.strip()}...",
-            )
+    for n, hit, window in scan(p, CLAIMS, before=70, after=40):
+        if NEGATED.search(window):
+            # e.g. "a superbill is a receipt, not a guarantee" — honest, keep
+            continue
+        fail(
+            "R3 superiority/outcome claim",
+            f'{p.name}:{n} contains "{hit}" — BPC §651 bars superiority '
+            f"and assured-result claims. Context: ...{window}...",
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -311,14 +321,13 @@ FL_LICENSE_CLAIM = re.compile(
 )
 
 for p in PAGES:
-    for n, line in enumerate(prose(p).split("\n"), start=1):
-        if FL_LICENSE_CLAIM.search(line):
-            fail(
-                "R9 Florida credential",
-                f"{p.name}:{n} appears to claim Florida licensure. FS §456.47 is an "
-                f"out-of-state telehealth REGISTRATION (TPMF1707); no license is "
-                f"issued. Context: ...{line.strip()[:120]}...",
-            )
+    for n, hit, window in scan(p, FL_LICENSE_CLAIM, before=20, after=40):
+        fail(
+            "R9 Florida credential",
+            f"{p.name}:{n} appears to claim Florida licensure. FS §456.47 is an "
+            f"out-of-state telehealth REGISTRATION (TPMF1707); no license is "
+            f"issued. Context: ...{window[:150]}...",
+        )
 
 
 # ---------------------------------------------------------------------------

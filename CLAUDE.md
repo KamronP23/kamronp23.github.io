@@ -210,13 +210,17 @@ malpractice carrier for their vetted template and replace it.
 
 ## Known issues, not yet fixed
 
-- `contact.html` posts to Formspree with a free-text message field. No BAA. The
-  fix is to drop the textarea for a bounded dropdown and link out to a hosted
-  HIPAA-compliant page (Hushmail or MailHippo) for anything private.
+- The only form on the site is a Google Forms iframe on `contact.html`
+  (`#contactForm`), covered by Kamron's Google Workspace HIPAA BAA. Formspree is
+  gone. The condition pages link to `contact.html#contactForm` instead of having
+  their own form. GA4/GTM must stay off `contact.html`. The form must never go
+  back on a condition page or on any page that loads GA/GTM. No Google Forms
+  add-ons: they are not covered by the BAA.
 - No crisis line on the contact page. Should say: call or text 988, or 911.
-- GTM, GA4 (with a `generate_lead` event capturing page path) and a Psychology
-  Today badge script run on every page including the condition pages. Kamron
-  chose to leave these for now. Don't add more — R5 will block new ones.
+- GTM and GA4 run on every page except `contact.html`, including the condition
+  pages; the Psychology Today badge script runs on every page. The
+  `generate_lead` event was removed along with the Formspree forms. Kamron
+  chose to leave these for now. Don't add more; R5 will block new ones.
 - Verify GitHub Pages "Enforce HTTPS" is on. Chrome 154 (Oct 2026) shows a
   full-page interstitial for plain-HTTP visits.
 - `mens-mental-health.html` has 0 inbound internal links, by Kamron's choice.

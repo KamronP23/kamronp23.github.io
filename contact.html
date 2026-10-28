@@ -23,34 +23,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-LZYDVCP9Z1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-LZYDVCP9Z1");
-    </script>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-T5ZZJ9H5");
-    </script>
-    <!-- End Google Tag Manager -->
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
@@ -290,64 +262,19 @@
               <a href="tel:911">911</a>.
             </p>
 
-            <p class="disclaimer mb-4">
-              This contact form is not HIPAA-secure. Please do not include
-              sensitive or clinical information.
-            </p>
-
-            <!-- Contact form -->
-            <form
-              id="contactForm"
-              action="https://formspree.io/f/mvzqlrow"
-              method="POST"
-            >
-              <input
-                type="hidden"
-                name="_subject"
-                value="New website contact - Kindred Mental Health"
-              />
-              <input
-                type="text"
-                name="_gotcha"
-                style="display: none"
-                tabindex="-1"
-                autocomplete="off"
-              />
-
-              <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="text" name="Name" class="form-control" required />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="Email" class="form-control" required />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label" for="stateSelect">State</label>
-                <select
-                  id="stateSelect"
-                  name="State"
-                  class="form-control form-select"
-                  required
-                >
-                  <option value="" disabled selected>Select your state</option>
-                  <option value="California">California</option>
-                  <option value="Florida">Florida</option>
-                  <option value="Washington">Washington</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Message</label>
-                <textarea name="Message" rows="5" class="form-control"></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary px-4">
-                Send Message
-              </button>
-            </form>
+            <!-- Contact form: Google Forms, covered by Google Workspace HIPAA BAA -->
+            <div id="contactForm">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSdlzB30C54rw9j3QuBPvSJxbsEiggwTcMUmkNzpb4D9ZrG93w/viewform?embedded=true"
+                title="Contact form"
+                width="100%"
+                height="1250"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                loading="lazy"
+                >Loading…</iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -393,22 +320,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      (function () {
-        const form = document.getElementById("contactForm");
-        if (!form) return;
-
-        form.addEventListener("submit", function () {
-          if (typeof gtag === "function") {
-            gtag("event", "generate_lead", {
-              lead_type: "contact_form",
-              page_path: window.location.pathname,
-              page_location: window.location.href,
-            });
-          }
-        });
-      })();
-    </script>
     <!-- State selector: swaps the result panel. WA never links to Headway. -->
     <script>
       (function () {

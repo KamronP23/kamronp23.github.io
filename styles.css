@@ -560,6 +560,18 @@ img {
   white-space: nowrap;
 }
 
+/* Google Forms embed on contact.html: the form is taller at narrow widths,
+   so size the frame per breakpoint (measured, incl. required-field errors) */
+#contactForm iframe {
+  height: 1190px;
+}
+
+@media (min-width: 768px) {
+  #contactForm iframe {
+    height: 1130px;
+  }
+}
+
 /* 14. CTA band ----------------------------------------------------------- */
 .cta-band {
   position: relative;

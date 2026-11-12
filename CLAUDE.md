@@ -90,7 +90,9 @@ Things a past session already checked, so a future one doesn't re-flag them:
 
 `tools/compliance-check.py` encodes the Hard Rules above as 16 mechanical checks,
 each carrying its statutory citation in a comment. It needs no API key, no token
-and no network: it is pattern matching over the repo's own files.
+and no network: it is pattern matching over the repo's own files. It scans every
+`*.html` at the repo root plus `articles/*.html`, skipping files that start with
+`_` (Jekyll does not publish them, so `articles/_template.html` never ships).
 
 **Run it before every commit:**
 
@@ -181,7 +183,8 @@ site-wide.
 
 ## Current state (Aug 2026)
 
-**12 pages, all live and committed to `main`.** The site is clean against the
+**16 pages, all live and committed to `main`** (15 at the root plus
+`articles/index.html`). The site is clean against the
 compliance gate as of 26 Aug 2026.
 
 Recent, in order:
@@ -216,7 +219,6 @@ malpractice carrier for their vetted template and replace it.
   their own form. GA4/GTM must stay off `contact.html`. The form must never go
   back on a condition page or on any page that loads GA/GTM. No Google Forms
   add-ons: they are not covered by the BAA.
-- No crisis line on the contact page. Should say: call or text 988, or 911.
 - GTM and GA4 run on every page except `contact.html`, including the condition
   pages; the Psychology Today badge script runs on every page. The
   `generate_lead` event was removed along with the Formspree forms. Kamron
@@ -229,8 +231,6 @@ malpractice carrier for their vetted template and replace it.
 
 - Match the existing page structure exactly — same `<head>` block, same nav, same
   footer. Copy from a sibling page rather than inventing markup.
-- Legal pages use the `.legal-body` wrapper and the styles at the bottom of
-  `styles.css`.
 - Content structure that gets cited by AI search: a question-phrased `<h2>`, a
   direct 40–60 word answer immediately under it, then supporting detail.
 - `job-loss-and-career-therapy.html` is the content template for new specialty

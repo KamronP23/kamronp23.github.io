@@ -24,7 +24,17 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sorted(ROOT.glob("*.html"))
+# Root pages plus articles/. Files starting with "_" are skipped: GitHub Pages
+# (Jekyll) does not publish them, so articles/_template.html never ships.
+PAGES = sorted(
+    [*ROOT.glob("*.html")]
+    + [p for p in ROOT.glob("articles/*.html") if not p.name.startswith("_")]
+)
+
+
+def rel(p: pathlib.Path) -> str:
+    """Repo-relative path, so articles/index.html is not confused with index.html."""
+    return p.relative_to(ROOT).as_posix()
 
 # In GitHub Actions, emit workflow commands so each failure appears as an
 # inline annotation on the offending line in the pull request diff.
@@ -36,7 +46,7 @@ warnings: list[tuple[str, str, str | None, int | None]] = []
 
 def _loc(msg: str) -> tuple[str | None, int | None]:
     """Pull 'file.html:123' or 'file.html' out of a message for annotations."""
-    m = re.match(r"([\w.-]+\.(?:html|txt|xml))(?::(\d+))?", msg)
+    m = re.match(r"([\w./-]+\.(?:html|txt|xml))(?::(\d+))?", msg)
     if not m:
         return None, None
     return m.group(1), int(m.group(2)) if m.group(2) else None
@@ -102,7 +112,7 @@ for p in PAGES:
     body = text(p)
     missing = [m for m in LICENSE_MARKERS if m not in body]
     if missing:
-        fail("R1 license block", f"{p.name} is missing {', '.join(missing)}")
+        fail("R1 license block", f"{rel(p)} is missing {', '.join(missing)}")
 
 
 # ---------------------------------------------------------------------------
@@ -132,7 +142,7 @@ for p in PAGES:
             continue
         fail(
             "R2 protected term",
-            f'{p.name}:{n} uses "{hit}" — reserved under BPC §2903. '
+            f'{rel(p)}:{n} uses "{hit}" — reserved under BPC §2903. '
             f'Use "psychotherapy"/"psychotherapist". Context: ...{window}...',
         )
 
@@ -163,7 +173,7 @@ for p in PAGES:
             continue
         fail(
             "R3 superiority/outcome claim",
-            f'{p.name}:{n} contains "{hit}" — BPC §651 bars superiority '
+            f'{rel(p)}:{n} contains "{hit}" — BPC §651 bars superiority '
             f"and assured-result claims. Context: ...{window}...",
         )
 
@@ -188,7 +198,7 @@ for p in PAGES:
         if rx.search(body):
             fail(
                 "R4 testimonial",
-                f"{p.name} contains {label}. AAMFT 9.2 — no testimonials, reviews, "
+                f"{rel(p)} contains {label}. AAMFT 9.2 — no testimonials, reviews, "
                 f"client quotes, or star ratings anywhere on the site.",
             )
 
@@ -221,16 +231,16 @@ for p in PAGES:
     body = text(p)
     for rx, label in AD_TAGS:
         if rx.search(body):
-            if p.name in HEALTH_PAGES:
+            if p.name in HEALTH_PAGES or rel(p).startswith("articles/"):
                 fail(
                     "R5 ad tag on health page",
-                    f"{p.name} loads {label}. RCW 19.373 treats a pageview here as "
+                    f"{rel(p)} loads {label}. RCW 19.373 treats a pageview here as "
                     f"consumer health data. This one has a private right of action.",
                 )
             else:
                 warn(
                     "R5 ad tag",
-                    f"{p.name} loads {label}. Allowed here, but confirm it is not "
+                    f"{rel(p)} loads {label}. Allowed here, but confirm it is not "
                     f"also firing on a condition or booking page.",
                 )
 
@@ -278,7 +288,7 @@ for p in PAGES:
     if FREE_CONSULT.search(body) and not FL_NOTE.search(text(p)):
         fail(
             "R7 Florida footnote",
-            f"{p.name} advertises a free consultation but has no FS §456.062 "
+            f"{rel(p)} advertises a free consultation but has no FS §456.062 "
             f"footnote. Copy the <sup>1</sup> block from financial-anxiety.html.",
         )
 
@@ -302,10 +312,11 @@ for name, basis in REQUIRED_PAGES.items():
 for p in PAGES:
     body = text(p)
     for name in REQUIRED_PAGES:
-        if name == p.name:
+        if rel(p) == name:
             continue  # a page need not link to itself
-        if f'href="{name}"' not in body and f"href='{name}'" not in body:
-            fail("R8 footer link", f"{p.name} does not link to {name}.")
+        # Pages in articles/ use root-absolute links ("/privacy.html").
+        if not any(f"href={q}{pre}{name}{q}" in body for q in "\"'" for pre in ("", "/")):
+            fail("R8 footer link", f"{rel(p)} does not link to {name}.")
 
 
 # ---------------------------------------------------------------------------
@@ -324,7 +335,7 @@ for p in PAGES:
     for n, hit, window in scan(p, FL_LICENSE_CLAIM, before=20, after=40):
         fail(
             "R9 Florida credential",
-            f"{p.name}:{n} appears to claim Florida licensure. FS §456.47 is an "
+            f"{rel(p)}:{n} appears to claim Florida licensure. FS §456.47 is an "
             f"out-of-state telehealth REGISTRATION (TPMF1707); no license is "
             f"issued. Context: ...{window[:150]}...",
         )
@@ -351,7 +362,7 @@ if not any("flhealthsource.gov/telehealth" in text(p) for p in PAGES):
 for p in list(PAGES) + [q for q in (ROOT / "robots.txt", ROOT / "sitemap.xml") if q.exists()]:
     for n, line in lines(p):
         if "[[CONFIRM" in line or "TODO:" in line and "<!--" not in line:
-            fail("R11 placeholder", f"{p.name}:{n} contains an unresolved placeholder.")
+            fail("R11 placeholder", f"{rel(p)}:{n} contains an unresolved placeholder.")
 
 
 # ---------------------------------------------------------------------------
@@ -395,16 +406,19 @@ SITE = "https://kindredmentalhealth.com"
 for p in PAGES:
     m = CANON.search(text(p))
     if not m:
-        warn("R13 canonical", f"{p.name} has no canonical tag.")
+        warn("R13 canonical", f"{rel(p)} has no canonical tag.")
         continue
 
     href = m.group(1).strip()
-    expected = f"{SITE}/" if p.name == "index.html" else f"{SITE}/{p.name}"
+    path = rel(p)
+    if path == "index.html" or path.endswith("/index.html"):
+        path = path[: -len("index.html")]  # articles/index.html -> articles/
+    expected = f"{SITE}/{path}"
 
     if href.rstrip("/") != expected.rstrip("/"):
         fail(
             "R13 canonical",
-            f"{p.name} declares canonical {href} but should be {expected}. "
+            f"{rel(p)} declares canonical {href} but should be {expected}. "
             f"A canonical pointing at another page makes this one unindexable — "
             f"almost always a leftover from copying a sibling page.",
         )
@@ -423,7 +437,7 @@ for p in PAGES:
         try:
             json.loads(block)
         except json.JSONDecodeError as e:
-            fail("R14 JSON-LD", f"{p.name} JSON-LD block {i} does not parse: {e}")
+            fail("R14 JSON-LD", f"{rel(p)} JSON-LD block {i} does not parse: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -438,16 +452,16 @@ DESC = re.compile(r'<meta\s+name="description"\s+content="(.*?)"', re.S | re.I)
 for p in PAGES:
     m = DESC.search(text(p))
     if not m:
-        fail("R15 meta description", f"{p.name} has no meta description.")
+        fail("R15 meta description", f"{rel(p)} has no meta description.")
         continue
     d = " ".join(m.group(1).split())
     if len(d) > 160:
         fail("R15 meta description",
-             f"{p.name} meta description is {len(d)} chars; over 160 gets truncated "
+             f"{rel(p)} meta description is {len(d)} chars; over 160 gets truncated "
              f"in search results. Trim it.")
     elif len(d) < 50:
         warn("R15 meta description",
-             f"{p.name} meta description is only {len(d)} chars — likely leaving "
+             f"{rel(p)} meta description is only {len(d)} chars — likely leaving "
              f"useful snippet space unused.")
 
 
@@ -474,7 +488,7 @@ for p in PAGES:
             n = body.count("\n", 0, body.index(ch)) + 1
             fail(
                 "R16 dash style",
-                f"{p.name}:{n} uses {label} ({c} occurrence{'s' if c > 1 else ''}). "
+                f"{rel(p)}:{n} uses {label} ({c} occurrence{'s' if c > 1 else ''}). "
                 f"Kamron wants plain hyphens only. Replace with '-'.",
             )
 

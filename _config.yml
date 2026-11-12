@@ -1,0 +1,7 @@
+# GitHub Pages (Jekyll) build settings.
+# Keep repo-internal files off the public site. These stay in the repo;
+# this only stops them being served at kindredmentalhealth.com.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - tools/
